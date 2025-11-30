@@ -1,0 +1,208 @@
+<div class="relative flex min-h-screen w-full">
+    <main class="flex-1 overflow-y-auto">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-wrap items-center justify-between gap-4 pb-8">
+                <div class="flex min-w-72 flex-col gap-1">
+                    <p
+                        class="text-text-light dark:text-text-dark text-3xl sm:text-4xl font-bold leading-tight tracking-tight">
+                        Crear Nueva Encuesta</p>
+                    <p class="text-subtle-light dark:text-subtle-dark text-base font-normal leading-normal">Rellena los
+                        detalles y añade preguntas para empezar.</p>
+                </div>
+                <div class="flex items-center gap-2 flex-wrap">
+                    <span class="text-sm text-subtle-light dark:text-subtle-dark hidden sm:inline">Guardado ✓</span>
+                    <a routerLink="/surveys"
+                        class="flex items-center justify-center rounded-lg h-10 px-4 text-text-light dark:text-text-dark text-sm font-bold border border-border-light dark:border-border-dark hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors">Cancelar</a>
+                    <button
+                        class="flex items-center justify-center rounded-lg h-10 px-4 bg-slate-200 dark:bg-slate-700 text-subtle-light dark:text-subtle-dark text-sm font-bold">Guardar
+                        Borrador</button>
+                    <button
+                        class="flex items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold hover:bg-primary-dark transition-colors">Publicar</button>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 space-y-6">
+                    <div
+                        class="bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-xl p-6">
+                        <div class="grid grid-cols-1 gap-6">
+                            <label class="flex flex-col">
+                                <p
+                                    class="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2">
+                                    Título de la encuesta</p>
+                                <input
+                                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:border-primary dark:focus:border-primary h-14 placeholder:text-subtle-light dark:placeholder:text-subtle-dark p-[15px] text-base font-normal leading-normal"
+                                    placeholder="Ej: Encuesta de Satisfacción del Cliente Q4" value="" />
+                            </label>
+                            <label class="flex flex-col">
+                                <p
+                                    class="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2">
+                                    Descripción (opcional)</p>
+                                <textarea
+                                    class="form-input flex w-full min-w-0 flex-1 resize-y overflow-hidden rounded-lg text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:border-primary dark:focus:border-primary min-h-36 placeholder:text-subtle-light dark:placeholder:text-subtle-dark p-[15px] text-base font-normal leading-normal"
+                                    placeholder="Añade una breve descripción para dar contexto a los participantes."></textarea>
+                            </label>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-xl p-6">
+                        <div class="flex items-start gap-4">
+                            <button class="cursor-grab text-subtle-light dark:text-subtle-dark mt-2">
+                                <span class="material-symbols-outlined">drag_indicator</span>
+                            </button>
+                            <div class="flex-1 space-y-4">
+                                <div class="flex flex-col sm:flex-row gap-4">
+                                    <input
+                                        class="form-input flex-grow placeholder:text-subtle-light dark:placeholder:text-subtle-dark rounded-lg p-3 text-base border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary/50 focus:border-primary dark:focus:border-primary text-text-light dark:text-text-dark"
+                                        placeholder="Escribe tu pregunta aquí..."
+                                        value="¿Cuál es tu nivel de satisfacción con nuestro servicio de atención al cliente?" />
+                                    <select
+                                        class="form-select rounded-lg p-3 text-base border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary/50 focus:border-primary dark:focus:border-primary text-text-light dark:text-text-dark">
+                                        <option>Opción múltiple</option>
+                                        <option>Texto abierto</option>
+                                        <option selected="">Escala de valoración 1-5</option>
+                                    </select>
+                                </div>
+                                <div
+                                    class="flex items-center justify-between text-subtle-light dark:text-subtle-dark text-sm pl-8 pr-2">
+                                    <div class="flex items-center gap-4">
+                                        <span>1 - Muy insatisfecho</span>
+                                        <span>5 - Muy satisfecho</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-center gap-2 mt-2">
+                                <button
+                                    class="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700/50 text-subtle-light dark:text-subtle-dark hover:text-text-light dark:hover:text-text-dark">
+                                    <span class="material-symbols-outlined text-xl">content_copy</span>
+                                </button>
+                                <button
+                                    class="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700/50 text-subtle-light dark:text-subtle-dark hover:text-red-500 dark:hover:text-red-500">
+                                    <span class="material-symbols-outlined text-xl">delete</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-xl p-6">
+                        <div class="flex items-start gap-4">
+                            <button class="cursor-grab text-subtle-light dark:text-subtle-dark mt-2">
+                                <span class="material-symbols-outlined">drag_indicator</span>
+                            </button>
+                            <div class="flex-1 space-y-4">
+                                <div class="flex flex-col sm:flex-row gap-4">
+                                    <input
+                                        class="form-input flex-grow placeholder:text-subtle-light dark:placeholder:text-subtle-dark rounded-lg p-3 text-base border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary/50 focus:border-primary dark:focus:border-primary text-text-light dark:text-text-dark"
+                                        placeholder="Escribe tu pregunta aquí..."
+                                        value="¿Qué característica te gustaría que añadiéramos en el futuro?" />
+                                    <select
+                                        class="form-select rounded-lg p-3 text-base border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary/50 focus:border-primary dark:focus:border-primary text-text-light dark:text-text-dark">
+                                        <option>Opción múltiple</option>
+                                        <option selected="">Texto abierto</option>
+                                        <option>Escala de valoración 1-5</option>
+                                    </select>
+                                </div>
+                                <div class="pl-8">
+                                    <textarea
+                                        class="form-textarea w-full rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark text-subtle-light dark:text-subtle-dark"
+                                        disabled="" placeholder="Respuesta de texto largo..."></textarea>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-center gap-2 mt-2">
+                                <button
+                                    class="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700/50 text-subtle-light dark:text-subtle-dark hover:text-text-light dark:hover:text-text-dark">
+                                    <span class="material-symbols-outlined text-xl">content_copy</span>
+                                </button>
+                                <button
+                                    class="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700/50 text-subtle-light dark:text-subtle-dark hover:text-red-500 dark:hover:text-red-500">
+                                    <span class="material-symbols-outlined text-xl">delete</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        class="w-full flex items-center justify-center gap-2 py-3 border-2 border-dashed border-border-light dark:border-border-dark rounded-lg text-primary hover:bg-primary-light dark:hover:bg-primary/10 hover:border-primary dark:hover:border-primary transition-colors">
+                        <span class="material-symbols-outlined">add_circle</span>
+                        <span class="font-bold text-sm">Añadir Pregunta</span>
+                    </button>
+                </div>
+                <div class="lg:col-span-1">
+                    <div class="sticky top-8 space-y-6">
+                        <div
+                            class="bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-xl p-6 space-y-6">
+                            <h3 class="text-lg font-bold text-text-light dark:text-text-dark">Configuración y
+                                Publicación</h3>
+                            <div>
+                                <p
+                                    class="text-text-light dark:text-text-dark text-base font-medium leading-normal pb-2">
+                                    Período de vigencia</p>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="relative">
+                                        <input
+                                            class="form-input w-full rounded-lg text-text-light dark:text-text-dark border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary/50 focus:border-primary dark:focus:border-primary"
+                                            type="date" value="2024-07-28" />
+                                    </div>
+                                    <div class="relative">
+                                        <input
+                                            class="form-input w-full rounded-lg text-text-light dark:text-text-dark border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary/50 focus:border-primary dark:focus:border-primary"
+                                            type="date" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <p class="text-text-light dark:text-text-dark text-base font-medium leading-normal">
+                                    Vista previa en tiempo real</p>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input checked="" class="sr-only peer" type="checkbox" value="" />
+                                    <div
+                                        class="w-11 h-6 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/30 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-xl p-6 space-y-4">
+                            <h3 class="text-lg font-bold text-text-light dark:text-text-dark">Compartir Encuesta</h3>
+                            <div class="space-y-3">
+                                <label class="text-base font-medium text-text-light dark:text-text-dark">Enlace</label>
+                                <div class="relative">
+                                    <input
+                                        class="form-input w-full pr-12 rounded-lg text-sm text-subtle-light dark:text-subtle-dark border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark"
+                                        readonly="" type="text" value="https://bizsurvey.com/s/sfd87sdfh2" />
+                                    <button
+                                        class="absolute inset-y-0 right-0 flex items-center px-3 text-subtle-light dark:text-subtle-dark hover:text-primary dark:hover:text-primary">
+                                        <span class="material-symbols-outlined text-xl">content_copy</span>
+                                    </button>
+                                </div>
+                                <div class="relative">
+                                    <input
+                                        class="form-input w-full pr-12 rounded-lg text-sm text-subtle-light dark:text-subtle-dark border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark"
+                                        readonly="" type="text" value="https://bzsv.io/aB8xZ" />
+                                    <button
+                                        class="absolute inset-y-0 right-0 flex items-center px-3 text-subtle-light dark:text-subtle-dark hover:text-primary dark:hover:text-primary">
+                                        <span class="material-symbols-outlined text-xl">content_copy</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <label class="text-base font-medium text-text-light dark:text-text-dark">Código
+                                    QR</label>
+                                <div
+                                    class="flex flex-col items-center gap-4 p-4 border border-border-light dark:border-border-dark rounded-xl bg-background-light dark:bg-slate-800">
+                                    <div class="bg-center bg-no-repeat aspect-square bg-cover size-40 rounded-lg"
+                                        data-alt="QR Code for the survey link"
+                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDuOyZxe6sTkzMipHb0k3S8jWax8SzxOyTw1bJDtc9YwTZ4K20shfF9xyMk4Ez4fPpiyRGMziX03nC4KktuS01vxLeMfAe8ouu7nId5hEi85s7pW-iqByp9ysHvkISmPoE56Qh3xwaPL39XVD_DzcT7IFlxRXfyN9AwrS0Em7oClpbz4s2ZPCkoQtGYd_Ja3fmP6G2i8QvHYRk2RPjGSE0NuR3TmhtBsslucYar8y7wVXKG0cmicsIpgVaIz_L-yI735mhv1qMu-gqy");'>
+                                    </div>
+                                    <button
+                                        class="w-full flex items-center justify-center gap-2 py-2 border border-border-light dark:border-border-dark rounded-lg text-sm font-bold text-text-light dark:text-text-dark hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors">
+                                        <span class="material-symbols-outlined text-base">download</span>
+                                        Descargar QR
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

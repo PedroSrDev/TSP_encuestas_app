@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
-    selector: 'app-sidenav',
-    standalone: true,
-    imports: [CommonModule, RouterLink, RouterLinkActive],
-    template: `
+  selector: 'app-sidenav',
+  standalone: true,
+  imports: [CommonModule, RouterLink, RouterLinkActive],
+  template: `
     <aside class="flex h-full w-64 flex-col justify-between bg-slate-800 p-4 text-white">
       <div class="flex flex-col gap-4">
         <div class="flex items-center gap-3 px-3 py-2 text-white">
@@ -18,6 +18,10 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
           <a routerLink="/dashboard" routerLinkActive="bg-slate-900 text-white" [routerLinkActiveOptions]="{exact: true}" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium leading-normal text-slate-300 transition-colors hover:bg-slate-700 hover:text-white">
             <span class="material-symbols-outlined text-xl">dashboard</span>
             Dashboard
+          </a>
+          <a routerLink="/users" routerLinkActive="bg-slate-900 text-white" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium leading-normal text-slate-300 transition-colors hover:bg-slate-700 hover:text-white">
+            <span class="material-symbols-outlined text-xl">group</span>
+            Usuarios
           </a>
           <a routerLink="/surveys" routerLinkActive="bg-slate-900 text-white" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium leading-normal text-slate-300 transition-colors hover:bg-slate-700 hover:text-white">
             <span class="material-symbols-outlined text-xl">assignment</span>
