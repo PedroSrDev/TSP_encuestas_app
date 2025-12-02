@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -75,21 +75,29 @@ export class LandingPageComponent {
   loginForm: FormGroup;
   isLoading = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router 
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', Validators.required] // ← solo validación visual
     });
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
       this.isLoading = true;
-      this.authService.login(this.loginForm.value.email).subscribe({
+
+      const email = this.loginForm.value.email;
+
+      this.authService.login(email).subscribe({
         next: (res) => {
           console.log('Login success', res);
           this.isLoading = false;
-          // Navigate to dashboard or handle success
+
+          this.router.navigate(['/dashboard']);
         },
         error: (err) => {
           console.error('Login failed', err);

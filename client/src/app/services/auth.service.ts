@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
-import { of, delay } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class AuthService {
 
-    constructor() { }
+  private API_URL = 'http://localhost:5002';
 
-    login(email: string) {
-        // Simulate API call
-        return of({ success: true, email }).pipe(delay(1000));
-    }
+  constructor(private http: HttpClient) {}
 
-    registerCompany(data: any) {
-        // Simulate API call
-        return of({ success: true, data }).pipe(delay(1000));
-    }
+  login(email: string): Observable<any> {
+    return this.http.post(`${this.API_URL}/login`, { email: email });
+  }
+
+  registerCompany(data: any): Observable<any> {
+    return this.http.post(`${this.API_URL}/register-company`, data);
+  }
 }

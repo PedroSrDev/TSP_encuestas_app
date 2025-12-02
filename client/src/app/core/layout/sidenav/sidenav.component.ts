@@ -13,7 +13,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
           <span class="material-symbols-outlined text-2xl">bar_chart</span>
           <h2 class="text-lg font-bold tracking-tight">Tu encuesta</h2>
         </div>
-        <div class="mb-4 border-t border-white/20 px-3 pt-4 text-sm font-medium">{{ '{' }}NOMBRE_EMPRESA{{ '}' }}</div>
+        <div class="mb-4 border-t border-white/20 px-3 pt-4 text-sm font-medium">POLI ENCUESTAS</div>
         <nav class="flex flex-col gap-2">
           <a routerLink="/dashboard" routerLinkActive="bg-slate-900 text-white" [routerLinkActiveOptions]="{exact: true}" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium leading-normal text-slate-300 transition-colors hover:bg-slate-700 hover:text-white">
             <span class="material-symbols-outlined text-xl">dashboard</span>
