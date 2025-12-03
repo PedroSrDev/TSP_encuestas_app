@@ -12,28 +12,29 @@
             <div
                 class="mt-8 rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900/50">
                 <h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">Añadir un Nuevo Usuario</h2>
-                <form class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+                <form [formGroup]="userForm" (ngSubmit)="onSubmit()"
+                    class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                     <div class="lg:col-span-1">
                         <label class="flex flex-col">
                             <p class="pb-2 text-sm font-medium text-slate-700 dark:text-slate-300">Nombre Completo</p>
-                            <input
+                            <input formControlName="name"
                                 class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-slate-300 bg-slate-100 p-3 text-base text-slate-900 placeholder:text-slate-400 focus:border-primary-500 focus:outline-0 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:placeholder:text-slate-500 dark:focus:border-primary-500"
-                                placeholder="Introduce el nombre" value="" />
+                                placeholder="Introduce el nombre" />
                         </label>
                     </div>
                     <div class="lg:col-span-1">
                         <label class="flex flex-col">
                             <p class="pb-2 text-sm font-medium text-slate-700 dark:text-slate-300">Correo Electrónico
                             </p>
-                            <input
+                            <input formControlName="email"
                                 class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-slate-300 bg-slate-100 p-3 text-base text-slate-900 placeholder:text-slate-400 focus:border-primary-500 focus:outline-0 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:placeholder:text-slate-500 dark:focus:border-primary-500"
-                                placeholder="ejemplo@empresa.com" value="" />
+                                placeholder="ejemplo@empresa.com" />
                         </label>
                     </div>
                     <div class="lg:col-span-1">
                         <label class="flex flex-col">
                             <p class="pb-2 text-sm font-medium text-slate-700 dark:text-slate-300">Rol</p>
-                            <select
+                            <select formControlName="role"
                                 class="form-select flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-slate-300 bg-slate-100 p-3 text-base text-slate-900 focus:border-primary-500 focus:outline-0 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:focus:border-primary-500">
                                 <option>Creador</option>
                                 <option>Analista</option>
@@ -41,10 +42,10 @@
                         </label>
                     </div>
                     <div class="flex flex-col justify-end">
-                        <button
+                        <button [disabled]="userForm.invalid || isLoading"
                             class="flex h-12 cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg bg-primary-600 px-5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-primary-700 disabled:opacity-50">
                             <span class="material-symbols-outlined">add</span>
-                            <span class="truncate">Añadir Usuario</span>
+                            <span class="truncate">{{ isLoading ? 'Añadiendo...' : 'Añadir Usuario' }}</span>
                         </button>
                     </div>
                 </form>
@@ -55,7 +56,7 @@
                     <div class="relative min-w-64">
                         <span
                             class="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500">search</span>
-                        <input
+                        <input [(ngModel)]="searchTerm" (input)="onSearch()"
                             class="form-input w-full rounded-lg border border-slate-300 bg-slate-100 py-2 pl-10 pr-4 text-slate-900 placeholder:text-slate-400 focus:border-primary-500 focus:outline-0 focus:ring-2 focus:ring-primary-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:placeholder:text-slate-500 dark:focus:border-primary-500"
                             placeholder="Buscar por nombre o correo..." />
                     </div>
@@ -73,34 +74,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="border-b border-slate-200 dark:border-slate-800">
-                                <td class="whitespace-nowrap px-6 py-4 font-medium text-slate-900 dark:text-white">Ana
-                                    Pérez</td>
-                                <td class="px-6 py-4 text-slate-600 dark:text-slate-400">ana.perez@empresa.com</td>
-                                <td class="px-6 py-4 text-slate-600 dark:text-slate-400">Creador</td>
-                                <td class="px-6 py-4">
-                                    <span
-                                        class="inline-flex items-center gap-1.5 rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800 dark:bg-green-900/50 dark:text-green-300">
-                                        <span class="size-1.5 rounded-full bg-green-500"></span>
-                                        Activo
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 text-right">
-                                    <div class="flex items-center justify-end gap-2">
-                                        <button
-                                            class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-primary-600 dark:hover:bg-slate-800 dark:hover:text-primary-400"><span
-                                                class="material-symbols-outlined text-xl">edit</span></button>
-                                        <button
-                                            class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-500/10 dark:hover:text-red-500"><span
-                                                class="material-symbols-outlined text-xl">delete</span></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-slate-200 dark:border-slate-800">
+                            <tr *ngFor="let user of users" class="border-b border-slate-200 dark:border-slate-800">
                                 <td class="whitespace-nowrap px-6 py-4 font-medium text-slate-900 dark:text-white">
-                                    Carlos Gómez</td>
-                                <td class="px-6 py-4 text-slate-600 dark:text-slate-400">carlos.gomez@empresa.com</td>
-                                <td class="px-6 py-4 text-slate-600 dark:text-slate-400">Analista</td>
+                                    {{ user.nombreCompleto || user.name }}</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-400">{{ user.correo || user.email }}
+                                </td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-400">{{ user.rol || user.role }}
+                                </td>
                                 <td class="px-6 py-4">
                                     <span
                                         class="inline-flex items-center gap-1.5 rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800 dark:bg-green-900/50 dark:text-green-300">
@@ -113,33 +93,14 @@
                                         <button
                                             class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-primary-600 dark:hover:bg-slate-800 dark:hover:text-primary-400"><span
                                                 class="material-symbols-outlined text-xl">edit</span></button>
-                                        <button
+                                        <button (click)="deleteUser(user.idUsuario || user.id)"
                                             class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-500/10 dark:hover:text-red-500"><span
                                                 class="material-symbols-outlined text-xl">delete</span></button>
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="whitespace-nowrap px-6 py-4 font-medium text-slate-900 dark:text-white">Laura
-                                    Martín</td>
-                                <td class="px-6 py-4 text-slate-600 dark:text-slate-400">laura.martin@empresa.com</td>
-                                <td class="px-6 py-4 text-slate-600 dark:text-slate-400">Analista</td>
-                                <td class="px-6 py-4">
-                                    <span
-                                        class="inline-flex items-center gap-1.5 rounded-full bg-slate-200 px-2 py-1 text-xs font-medium text-slate-700 dark:bg-slate-700 dark:text-slate-300">
-                                        <span class="size-1.5 rounded-full bg-slate-500"></span>
-                                        Inactivo
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 text-right">
-                                    <div class="flex items-center justify-end gap-2">
-                                        <button
-                                            class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-primary-600 dark:hover:bg-slate-800 dark:hover:text-primary-400"><span
-                                                class="material-symbols-outlined text-xl">edit</span></button>
-                                        <button
-                                            class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-500/10 dark:hover:text-red-500"><span
-                                                class="material-symbols-outlined text-xl">delete</span></button>
-                                    </div>
+                            <tr *ngIf="users.length === 0">
+                                <td colspan="5" class="px-6 py-4 text-center text-slate-500">No se encontraron usuarios.
                                 </td>
                             </tr>
                         </tbody>

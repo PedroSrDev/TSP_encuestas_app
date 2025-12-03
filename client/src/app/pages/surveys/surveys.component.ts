@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { SurveysService } from '../../services/surveys.service';
+import { AlertService } from '../../services/alert.service';
 import { FormsModule } from '@angular/forms';
 
 interface Survey {
@@ -19,39 +21,31 @@ interface Survey {
     imports: [CommonModule, RouterLink, FormsModule],
     templateUrl: './surveys.component.html'
 })
-export class SurveysComponent {
+export class SurveysComponent implements OnInit {
     searchTerm: string = '';
     filterStatus: 'all' | 'active' | 'draft' | 'closed' = 'all';
+    surveys: any[] = [];
+    isLoading = true;
 
-    surveys: Survey[] = [
-        {
-            id: 1,
-            title: 'Satisfacción del Cliente Q4',
-            description: 'Creada el 15 Oct, 2023',
-            status: 'active',
-            date: '2023-10-15',
-            responses: 1204,
-            completionRate: 82
-        },
-        {
-            id: 2,
-            title: 'Compromiso Empleados 2024',
-            description: 'Modificada el 01 Nov, 2023',
-            status: 'draft',
-            date: '2023-11-01',
-            responses: 0,
-            completionRate: 0
-        },
-        {
-            id: 3,
-            title: 'Feedback del Producto Beta',
-            description: 'Cerrada el 20 Sep, 2023',
-            status: 'closed',
-            date: '2023-09-20',
-            responses: 856,
-            completionRate: 75
-        }
-    ];
+    constructor(private surveysService: SurveysService, private alertService: AlertService) { }
+
+    ngOnInit() {
+        this.loadSurveys();
+    }
+
+    loadSurveys() {
+        this.isLoading = true;
+        this.surveysService.getSurveys().subscribe({
+            next: (data) => {
+                this.surveys = data;
+                this.isLoading = false;
+            },
+            error: (err) => {
+                console.error('Error loading surveys', err);
+                this.isLoading = false;
+            }
+        });
+    }
 
     get filteredSurveys(): Survey[] {
         return this.surveys.filter(survey => {

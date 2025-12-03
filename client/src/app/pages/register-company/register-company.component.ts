@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
-    selector: 'app-register-company',
-    standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, RouterLink],
-    template: `
+  selector: 'app-register-company',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  template: `
     <div class="relative flex min-h-screen w-full flex-col font-display bg-white text-slate-800">
       <div class="flex-grow">
         <div class="flex h-full min-h-screen">
@@ -131,40 +132,47 @@ import { AuthService } from '../../services/auth.service';
   `
 })
 export class RegisterCompanyComponent {
-    registerForm: FormGroup;
-    isLoading = false;
-    showPassword = false;
+  registerForm: FormGroup;
+  isLoading = false;
+  showPassword = false;
 
-    constructor(private fb: FormBuilder, private authService: AuthService) {
-        this.registerForm = this.fb.group({
-            companyName: ['', Validators.required],
-            website: [''],
-            companySize: ['1-10 empleados', Validators.required],
-            fullName: ['', Validators.required],
-            email: ['', [Validators.required, Validators.email]],
-            password: ['', Validators.required],
-            terms: [false, Validators.requiredTrue]
-        });
-    }
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private alertService: AlertService,
+    private router: Router
+  ) {
+    this.registerForm = this.fb.group({
+      companyName: ['', Validators.required],
+      website: [''],
+      companySize: ['1-10 empleados', Validators.required],
+      fullName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      terms: [false, Validators.requiredTrue]
+    });
+  }
 
-    togglePassword() {
-        this.showPassword = !this.showPassword;
-    }
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
 
-    onSubmit() {
-        if (this.registerForm.valid) {
-            this.isLoading = true;
-            this.authService.registerCompany(this.registerForm.value).subscribe({
-                next: (res) => {
-                    console.log('Registration success', res);
-                    this.isLoading = false;
-                    // Navigate to dashboard or login
-                },
-                error: (err) => {
-                    console.error('Registration failed', err);
-                    this.isLoading = false;
-                }
-            });
+  onSubmit() {
+    if (this.registerForm.valid) {
+      this.isLoading = true;
+      this.authService.registerCompany(this.registerForm.value).subscribe({
+        next: (res) => {
+          console.log('Registration success', res);
+          this.isLoading = false;
+          this.alertService.success('Registro Exitoso', 'Tu cuenta de empresa ha sido creada correctamente.');
+          this.router.navigate(['/']); // Redirect to login
+        },
+        error: (err) => {
+          console.error('Registration failed', err);
+          this.isLoading = false;
+          // Error is handled by interceptor, but we can add specific handling if needed
         }
+      });
     }
+  }
 }
