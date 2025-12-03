@@ -1,6 +1,7 @@
 version: '3.9'
 
 services:
+
   postgres:
     image: postgres:15
     container_name: postgres_db
@@ -14,6 +15,26 @@ services:
     volumes:
       - ./db_init:/docker-entrypoint-initdb.d
       - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend_app
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: admin
+      DB_PASSWORD: admin
+      DB_NAME: encuentas
+    ports:
+      - "5002:5002"
+    volumes:
+      - ./backend:/app
+    command: ["python", "main.py"]
 
 volumes:
   pgdata:
