@@ -31,9 +31,10 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
             <span class="material-symbols-outlined text-xl">analytics</span>
             Análisis de Resultados
           </a>
-          <a routerLink="/templates" routerLinkActive="bg-slate-900 text-white" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium leading-normal text-slate-300 transition-colors hover:bg-slate-700 hover:text-white">
+          <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium leading-normal text-slate-300 transition-colors cursor-not-allowed opacity-50">
             <span class="material-symbols-outlined text-xl">grid_view</span>
             Plantillas
+            <span class="ml-auto rounded-full bg-primary-600 px-2 py-0.5 text-xs font-medium text-white">Próximamente</span>
           </a>
         </nav>
       </div>

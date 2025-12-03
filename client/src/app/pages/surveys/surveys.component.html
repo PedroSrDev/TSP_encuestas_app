@@ -24,103 +24,78 @@
                             <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
                                 <span
                                     class="material-symbols-outlined text-gray-500 flex bg-white dark:bg-gray-800 items-center justify-center pl-4 rounded-l-lg border border-grey-border dark:border-gray-700 border-r-0">search</span>
-                                <input
+                                <input [(ngModel)]="searchTerm"
                                     class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-grey-text dark:text-gray-200 focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-grey-border dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-primary/50 h-full placeholder:text-gray-500 px-4 border-l-0 text-sm font-normal"
                                     placeholder="Buscar por nombre de encuesta..." value="" />
                             </div>
                         </label>
                     </div>
                     <div class="flex gap-2 self-start md:self-center overflow-x-auto pb-2">
-                        <button
-                            class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-primary-light text-primary px-4 py-2 font-semibold">
+                        <button (click)="setFilter('all')" [class.bg-primary-light]="filterStatus === 'all'"
+                            [class.text-primary]="filterStatus === 'all'" [class.bg-gray-100]="filterStatus !== 'all'"
+                            [class.text-grey-text]="filterStatus !== 'all'"
+                            class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg px-4 py-2 font-semibold transition-colors">
                             <p class="text-sm leading-normal">Todos</p>
                         </button>
-                        <button
-                            class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-grey-text dark:text-gray-200 px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                        <button (click)="setFilter('active')" [class.bg-primary-light]="filterStatus === 'active'"
+                            [class.text-primary]="filterStatus === 'active'"
+                            [class.bg-gray-100]="filterStatus !== 'active'"
+                            [class.text-grey-text]="filterStatus !== 'active'"
+                            class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg px-4 py-2 font-semibold transition-colors">
                             <p class="text-sm font-medium leading-normal">Activas</p>
                         </button>
-                        <button
-                            class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-grey-text dark:text-gray-200 px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                        <button (click)="setFilter('draft')" [class.bg-primary-light]="filterStatus === 'draft'"
+                            [class.text-primary]="filterStatus === 'draft'"
+                            [class.bg-gray-100]="filterStatus !== 'draft'"
+                            [class.text-grey-text]="filterStatus !== 'draft'"
+                            class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg px-4 py-2 font-semibold transition-colors">
                             <p class="text-sm font-medium leading-normal">Borrador</p>
                         </button>
-                        <button
-                            class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-grey-text dark:text-gray-200 px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                        <button (click)="setFilter('closed')" [class.bg-primary-light]="filterStatus === 'closed'"
+                            [class.text-primary]="filterStatus === 'closed'"
+                            [class.bg-gray-100]="filterStatus !== 'closed'"
+                            [class.text-grey-text]="filterStatus !== 'closed'"
+                            class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg px-4 py-2 font-semibold transition-colors">
                             <p class="text-sm font-medium leading-normal">Cerradas</p>
                         </button>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div
+
+                <!-- Survey List -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" *ngIf="filteredSurveys.length > 0">
+                    <div *ngFor="let survey of filteredSurveys"
                         class="flex flex-col bg-white dark:bg-gray-900 border border-grey-border dark:border-gray-700 rounded-lg p-5 gap-4 hover:shadow-lg hover:-translate-y-1 transition-all">
                         <div class="flex justify-between items-start">
-                            <h3 class="text-grey-text dark:text-white font-bold text-lg">Satisfacción del Cliente Q4
-                            </h3>
-                            <div
-                                class="flex items-center gap-2 text-sm font-medium bg-green-100 text-green-800 dark:bg-status-active/20 dark:text-status-active px-2 py-1 rounded-full">
-                                <div class="size-2 rounded-full bg-status-active"></div>
-                                <span>Activa</span>
+                            <h3 class="text-grey-text dark:text-white font-bold text-lg">{{ survey.title }}</h3>
+                            <div [class]="getStatusColorClass(survey.status)"
+                                class="flex items-center gap-2 text-sm font-medium px-2 py-1 rounded-full">
+                                <div [class]="getStatusDotClass(survey.status)" class="size-2 rounded-full"></div>
+                                <span>{{ getStatusLabel(survey.status) }}</span>
                             </div>
                         </div>
-                        <p class="text-gray-500 dark:text-gray-400 text-sm">Creada el 15 Oct, 2023</p>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">{{ survey.description }}</p>
                         <div class="flex gap-6 text-sm">
                             <div class="flex flex-col">
-                                <span class="font-bold text-xl text-grey-text dark:text-white">1,204</span>
+                                <span class="font-bold text-xl text-grey-text dark:text-white">{{ survey.responses
+                                    }}</span>
                                 <span class="text-gray-500 dark:text-gray-400">Respuestas</span>
                             </div>
                             <div class="flex flex-col">
-                                <span class="font-bold text-xl text-status-active">82%</span>
+                                <span class="font-bold text-xl" [class.text-status-active]="survey.completionRate > 50"
+                                    [class.text-grey-text]="survey.completionRate <= 50">{{ survey.completionRate
+                                    }}%</span>
                                 <span class="text-gray-500 dark:text-gray-400">Tasa de finalización</span>
                             </div>
                         </div>
                         <div
                             class="border-t border-grey-border dark:border-gray-700 pt-4 mt-2 flex justify-between items-center">
-                            <a routerLink="/analytics" class="text-primary font-semibold text-sm hover:underline">Ver
-                                Resultados</a>
-                            <div class="flex gap-1">
-                                <button
-                                    class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400"
-                                    title="Editar">
-                                    <span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
-                                </button>
-                                <button
-                                    class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400"
-                                    title="Duplicar">
-                                    <span class="material-symbols-outlined" style="font-size: 20px;">content_copy</span>
-                                </button>
-                                <button
-                                    class="p-2 rounded-md hover:bg-red-50 dark:hover:bg-red-900/50 text-gray-500 dark:text-gray-400 hover:text-status-closed"
-                                    title="Eliminar">
-                                    <span class="material-symbols-outlined" style="font-size: 20px;">delete</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="flex flex-col bg-white dark:bg-gray-900 border border-grey-border dark:border-gray-700 rounded-lg p-5 gap-4 hover:shadow-lg hover:-translate-y-1 transition-all">
-                        <div class="flex justify-between items-start">
-                            <h3 class="text-grey-text dark:text-white font-bold text-lg">Compromiso Empleados 2024</h3>
-                            <div
-                                class="flex items-center gap-2 text-sm font-medium bg-orange-100 text-orange-800 dark:bg-status-draft/20 dark:text-status-draft px-2 py-1 rounded-full">
-                                <div class="size-2 rounded-full bg-status-draft"></div>
-                                <span>Borrador</span>
-                            </div>
-                        </div>
-                        <p class="text-gray-500 dark:text-gray-400 text-sm">Modificada el 01 Nov, 2023</p>
-                        <div class="flex gap-6 text-sm">
-                            <div class="flex flex-col">
-                                <span class="font-bold text-xl text-grey-text dark:text-white">0</span>
-                                <span class="text-gray-500 dark:text-gray-400">Respuestas</span>
-                            </div>
-                            <div class="flex flex-col">
-                                <span class="font-bold text-xl text-grey-text dark:text-white">0%</span>
-                                <span class="text-gray-500 dark:text-gray-400">Tasa de finalización</span>
-                            </div>
-                        </div>
-                        <div
-                            class="border-t border-grey-border dark:border-gray-700 pt-4 mt-2 flex justify-between items-center">
-                            <a class="text-primary font-semibold text-sm hover:underline" href="#">Continuar
+                            <a *ngIf="survey.status !== 'draft'" routerLink="/analytics"
+                                class="text-primary font-semibold text-sm hover:underline">Ver Resultados</a>
+                            <a *ngIf="survey.status === 'draft'"
+                                class="text-primary font-semibold text-sm hover:underline" href="#">Continuar
                                 Editando</a>
-                            <div class="flex gap-1">
+
+                            <div class="flex gap-1 ml-auto">
                                 <button
                                     class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400"
                                     title="Editar">
@@ -138,72 +113,29 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
-                    <div
-                        class="flex flex-col bg-white dark:bg-gray-900 border border-grey-border dark:border-gray-700 rounded-lg p-5 gap-4 hover:shadow-lg hover:-translate-y-1 transition-all">
-                        <div class="flex justify-between items-start">
-                            <h3 class="text-grey-text dark:text-white font-bold text-lg">Feedback del Producto Beta</h3>
-                            <div
-                                class="flex items-center gap-2 text-sm font-medium bg-red-100 text-red-800 dark:bg-status-closed/20 dark:text-status-closed px-2 py-1 rounded-full">
-                                <div class="size-2 rounded-full bg-status-closed"></div>
-                                <span>Cerrada</span>
-                            </div>
-                        </div>
-                        <p class="text-gray-500 dark:text-gray-400 text-sm">Cerrada el 20 Sep, 2023</p>
-                        <div class="flex gap-6 text-sm">
-                            <div class="flex flex-col">
-                                <span class="font-bold text-xl text-grey-text dark:text-white">856</span>
-                                <span class="text-gray-500 dark:text-gray-400">Respuestas</span>
-                            </div>
-                            <div class="flex flex-col">
-                                <span class="font-bold text-xl text-grey-text dark:text-white">75%</span>
-                                <span class="text-gray-500 dark:text-gray-400">Tasa de finalización</span>
-                            </div>
-                        </div>
-                        <div
-                            class="border-t border-grey-border dark:border-gray-700 pt-4 mt-2 flex justify-between items-center">
-                            <a routerLink="/analytics" class="text-primary font-semibold text-sm hover:underline">Ver
-                                Reporte Final</a>
-                            <div class="flex gap-1">
-                                <button
-                                    class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400"
-                                    title="Ver Resultados">
-                                    <span class="material-symbols-outlined" style="font-size: 20px;">bar_chart</span>
-                                </button>
-                                <button
-                                    class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400"
-                                    title="Duplicar">
-                                    <span class="material-symbols-outlined" style="font-size: 20px;">content_copy</span>
-                                </button>
-                                <button
-                                    class="p-2 rounded-md hover:bg-red-50 dark:hover:bg-red-900/50 text-gray-500 dark:text-gray-400 hover:text-status-closed"
-                                    title="Eliminar">
-                                    <span class="material-symbols-outlined" style="font-size: 20px;">delete</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="flex flex-col col-span-1 md:col-span-2 lg:col-span-3 items-center justify-center bg-gray-50 dark:bg-gray-900/50 border-2 border-dashed border-grey-border dark:border-gray-700 rounded-lg p-12 text-center">
-                        <span
-                            class="material-symbols-outlined text-gray-400 dark:text-gray-600 text-6xl mb-4">ballot</span>
-                        <h3 class="text-grey-text dark:text-white font-bold text-xl">Aún no has creado encuestas</h3>
-                        <p class="text-gray-500 dark:text-gray-400 mt-2 mb-6 max-w-sm">Haz clic en 'Crear Encuesta' para
-                            empezar a recolectar feedback valioso de tus clientes o empleados.</p>
-                        <a routerLink="/surveys/create"
-                            class="flex cursor-pointer items-center justify-center rounded-lg h-11 bg-primary text-white gap-2 text-sm font-bold min-w-0 px-5 hover:bg-blue-700 transition-colors shadow-sm">
-                            <span class="material-symbols-outlined text-white"
-                                style="font-size: 20px;">add_circle</span>
-                            <span>Crear mi Primera Encuesta</span>
-                        </a>
                     </div>
                 </div>
+
+                <!-- Empty State -->
+                <div *ngIf="filteredSurveys.length === 0"
+                    class="flex flex-col col-span-1 md:col-span-2 lg:col-span-3 items-center justify-center bg-gray-50 dark:bg-gray-900/50 border-2 border-dashed border-grey-border dark:border-gray-700 rounded-lg p-12 text-center">
+                    <span class="material-symbols-outlined text-gray-400 dark:text-gray-600 text-6xl mb-4">ballot</span>
+                    <h3 class="text-grey-text dark:text-white font-bold text-xl">No se encontraron encuestas</h3>
+                    <p class="text-gray-500 dark:text-gray-400 mt-2 mb-6 max-w-sm">Intenta ajustar tus filtros o crea
+                        una nueva encuesta.</p>
+                    <a routerLink="/surveys/create"
+                        class="flex cursor-pointer items-center justify-center rounded-lg h-11 bg-primary text-white gap-2 text-sm font-bold min-w-0 px-5 hover:bg-blue-700 transition-colors shadow-sm">
+                        <span class="material-symbols-outlined text-white" style="font-size: 20px;">add_circle</span>
+                        <span>Crear Encuesta</span>
+                    </a>
+                </div>
+
                 <nav aria-label="Pagination"
                     class="flex items-center justify-between border-t border-grey-border dark:border-gray-700 px-4 py-3 sm:px-6 mt-6">
                     <div class="hidden sm:block">
                         <p class="text-sm text-gray-700 dark:text-gray-400">
-                            Mostrando <span class="font-medium">1</span> a <span class="font-medium">3</span> de <span
-                                class="font-medium">3</span> resultados
+                            Mostrando <span class="font-medium">{{ filteredSurveys.length }}</span> de <span
+                                class="font-medium">{{ surveys.length }}</span> resultados
                         </p>
                     </div>
                     <div class="flex flex-1 justify-between sm:justify-end">

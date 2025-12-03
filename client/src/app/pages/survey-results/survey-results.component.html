@@ -56,29 +56,32 @@
                             <div class="flex items-center gap-3 mb-2">
                                 <div
                                     class="bg-primary-100 dark:bg-primary/20 text-primary dark:text-primary-200 p-2 rounded-lg">
-                                    <span class="material-symbols-outlined">reviews</span></div>
+                                    <span class="material-symbols-outlined">reviews</span>
+                                </div>
                                 <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total de Respuestas
                                 </p>
                             </div>
-                            <p class="text-3xl font-bold text-slate-900 dark:text-white">1,284</p>
+                            <p class="text-3xl font-bold text-slate-900 dark:text-white">1,684</p>
                         </div>
                         <div
                             class="p-5 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                             <div class="flex items-center gap-3 mb-2">
                                 <div
                                     class="bg-green-100 dark:bg-green-500/20 text-green-600 dark:text-green-400 p-2 rounded-lg">
-                                    <span class="material-symbols-outlined">task_alt</span></div>
+                                    <span class="material-symbols-outlined">task_alt</span>
+                                </div>
                                 <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Tasa de Finalización
                                 </p>
                             </div>
-                            <p class="text-3xl font-bold text-slate-900 dark:text-white">92%</p>
+                            <p class="text-3xl font-bold text-slate-900 dark:text-white">89%</p>
                         </div>
                         <div
                             class="p-5 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                             <div class="flex items-center gap-3 mb-2">
                                 <div
                                     class="bg-orange-100 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 p-2 rounded-lg">
-                                    <span class="material-symbols-outlined">sentiment_satisfied</span></div>
+                                    <span class="material-symbols-outlined">sentiment_satisfied</span>
+                                </div>
                                 <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">NPS Promedio</p>
                             </div>
                             <p class="text-3xl font-bold text-slate-900 dark:text-white">45</p>
@@ -180,7 +183,7 @@
                         <p><span class="font-semibold text-slate-900 dark:text-slate-200">Descargando:</span> 'Encuesta
                             de Clima Laboral Q3' con 1 filtro activo.</p>
                     </div>
-                    <button
+                    <button (click)="downloadExcel()"
                         class="w-full flex items-center justify-center gap-2 h-12 px-6 bg-primary text-white rounded-lg text-sm font-bold hover:bg-primary-600 transition-colors">
                         <span class="material-symbols-outlined">download</span>
                         Generar y Descargar
